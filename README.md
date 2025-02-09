@@ -170,6 +170,12 @@ To completely remove **Definer**, run:
 sudo rm /usr/local/bin/definer
 sed -i '/definer:/d' ~/.bashrc ~/.zshrc ~/.profile
 ```
+There is also an uninstall.sh file available to use it
+
+```sh
+sudo chmod +x uninstall.sh
+sudo ./uninstall.sh
+```
 
 This will:
 - Remove the `definer` script  
