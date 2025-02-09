@@ -2,7 +2,7 @@
 
 # Define installation path
 INSTALL_PATH="/usr/local/bin/definer"
-ALIAS_COMMAND="alias 'definer:'='/usr/local/bin/definer'"
+ALIAS_COMMAND="definer:() { /usr/local/bin/definer \"\$1\"; }"
 
 # Ensure script is run with sudo
 if [[ $EUID -ne 0 ]]; then
@@ -86,14 +86,18 @@ else
     PROFILE_FILE="$HOME/.profile"
 fi
 
-# Add alias if not already present
-if ! grep -q "alias 'definer:'" "$PROFILE_FILE"; then
+# Add function if not already present
+if ! grep -q "definer:()" "$PROFILE_FILE"; then
     echo "$ALIAS_COMMAND" >> "$PROFILE_FILE"
-    echo "Added alias 'definer:' to $PROFILE_FILE"
+    echo "Added 'definer:' function to $PROFILE_FILE"
 else
-    echo "'definer:' alias already exists in $PROFILE_FILE"
+    echo "'definer:' function already exists in $PROFILE_FILE"
 fi
 
-# Inform user to restart shell
-echo "Installation complete! Restart your shell or run 'source $PROFILE_FILE' to use 'definer:'."
+# Source the profile file automatically to make 'definer:' available immediately
+echo "Sourcing $PROFILE_FILE..."
+source "$PROFILE_FILE"
+
+# Final message
+echo "Installation complete! You can now use 'definer:' immediately."
 echo "Example: definer: hello"
