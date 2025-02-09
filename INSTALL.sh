@@ -2,7 +2,7 @@
 
 # Define installation path
 INSTALL_PATH="/usr/local/bin/definer"
-ALIAS_COMMAND='definer:() { /usr/local/bin/definer "$1"; }'
+ALIAS_COMMAND="alias 'definer:'='/usr/local/bin/definer'"
 
 # Ensure script is run with sudo
 if [[ $EUID -ne 0 ]]; then
@@ -44,11 +44,15 @@ def get_definition(word):
 
     # Fallback to an online dictionary API
     try:
-        response = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}")
+        response = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}", timeout=5)
         data = response.json()
-        if isinstance(data, list) and "meanings" in data[0]:
-            meaning = data[0]["meanings"][0]["definitions"][0]["definition"]
-            return f"{word}: {meaning}"
+        if isinstance(data, list) and data:
+            for entry in data:
+                if "meanings" in entry:
+                    for meaning in entry["meanings"]:
+                        if "definitions" in meaning:
+                            definition = meaning["definitions"][0]["definition"]
+                            return f"{word}: {definition}"
     except Exception as e:
         return f"Error fetching definition: {e}"
 
@@ -82,18 +86,14 @@ else
     PROFILE_FILE="$HOME/.profile"
 fi
 
-# Add function if not already present
-if ! grep -q "definer:" "$PROFILE_FILE"; then
+# Add alias if not already present
+if ! grep -q "alias 'definer:'" "$PROFILE_FILE"; then
     echo "$ALIAS_COMMAND" >> "$PROFILE_FILE"
-    echo "Added 'definer:' function to $PROFILE_FILE"
+    echo "Added alias 'definer:' to $PROFILE_FILE"
 else
-    echo "'definer:' function already exists in $PROFILE_FILE"
+    echo "'definer:' alias already exists in $PROFILE_FILE"
 fi
 
-# Reload the shell profile
-source "$PROFILE_FILE"
-
-echo "Installation complete! You can now use 'definer:' in your terminal."
+# Inform user to restart shell
+echo "Installation complete! Restart your shell or run 'source $PROFILE_FILE' to use 'definer:'."
 echo "Example: definer: hello"
-
-
