@@ -1,4 +1,4 @@
-# 🧠 Definer: A Simple Linux CLI Dictionary Tool
+# Definer: A Simple Linux CLI Dictionary Tool
 
 <!-- Uncomment if you have a banner image -->
 <!-- ![Definer Banner](https://yourimageurl.com/banner.png) -->
@@ -22,7 +22,7 @@ This tool is perfect for developers, writers, students, and anyone who prefers w
 
 ---
 
-## 💞 Installation
+## Installation
 
 ### **1️⃣ Clone the Repository**
 ```sh
@@ -54,7 +54,7 @@ hello: A greeting used to express friendliness.
 
 ---
 
-## 🛠️ Features
+## Features
 
 ✅ **Instant Word Definitions** - Look up words quickly by running `definer: <word>` in your terminal.  
 ✅ **Works Offline** - Uses the local `dict` command for fast, offline definitions.  
@@ -66,7 +66,7 @@ hello: A greeting used to express friendliness.
 
 ---
 
-## 🛠️ Usage
+## Usage
 
 ### **Basic Word Lookup (API Default)**
 ```sh
@@ -101,7 +101,7 @@ definer: --help
 
 ---
 
-## 🛠️ How Definer Works
+## How Definer Works
 
 ### **1️⃣ Local Dictionary Lookup (Verbose Mode `-v`)**
 If the `dict` command is installed on your system, **Definer will use it when `-v` is specified**.
@@ -128,7 +128,7 @@ If `-v` is **not** used, Definer will **fetch definitions from an online diction
 
 ---
 
-## 🚀 Supported Shells
+## Supported Shells
 
 | Shell | Supported |
 |--------|-----------|
@@ -138,7 +138,7 @@ If `-v` is **not** used, Definer will **fetch definitions from an online diction
 
 ---
 
-## 🚒 Troubleshooting
+## Troubleshooting
 
 ### **1️⃣ "Command Not Found" Error**
 **Issue:** If `definer:` is not recognized after installation.  
@@ -198,7 +198,7 @@ This will:
 
 ---
 
-## 🌟 Contributing
+## Contributing
 
 We welcome contributions! To contribute:
 
@@ -224,7 +224,7 @@ We welcome contributions! To contribute:
 
 ---
 
-## 📝 License
+## License
 
 This project is licensed under the **MIT License** with attribution.
 

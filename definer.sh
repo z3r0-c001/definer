@@ -25,7 +25,7 @@ if ! command -v dict &> /dev/null; then
     fi
 fi
 
-# Create the Python script
+# Python script
 echo "Creating definer script..."
 cat <<EOF > $INSTALL_PATH
 #!/usr/bin/env python3
@@ -60,13 +60,15 @@ def get_definition(word, verbose):
     return f"No definition found for '{word}'."
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or sys.argv[1] in ["--help", "-h"]:
         print("Usage: definer: <word> [-v]")
-        sys.exit(1)
+        print("  -v    Use the `dict` command for offline lookup")
+        sys.exit(0)
 
     word = sys.argv[1]
     verbose = "-v" in sys.argv
     print(get_definition(word, verbose))
+
 
 if __name__ == "__main__":
     main()
