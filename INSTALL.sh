@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Define installation path
+# Define installation paths
 INSTALL_PATH="/usr/local/bin/definer"
-ALIAS_COMMAND="definer:() { /usr/local/bin/definer \"\$1\"; }"
+WRAPPER_PATH="/usr/local/bin/definer:"
 
 # Ensure script is run with sudo
 if [[ $EUID -ne 0 ]]; then
@@ -70,33 +70,29 @@ if __name__ == "__main__":
     main()
 EOF
 
-# Ensure the script is executable
+# Ensure the Python script is executable
 chmod +x $INSTALL_PATH
 echo "Installed definer script to $INSTALL_PATH"
 
-# Detect the user's shell
-USER_SHELL=$(basename "$SHELL")
+# Create a wrapper script to allow `definer:` to work
+echo "Creating wrapper script for 'definer:'..."
+cat <<EOF > $WRAPPER_PATH
+#!/bin/bash
+/usr/local/bin/definer "\$@"
+EOF
 
-# Determine which profile file to edit
-if [[ "$USER_SHELL" == "bash" ]]; then
-    PROFILE_FILE="$HOME/.bashrc"
-elif [[ "$USER_SHELL" == "zsh" ]]; then
-    PROFILE_FILE="$HOME/.zshrc"
-else
-    PROFILE_FILE="$HOME/.profile"
+# Make the wrapper executable
+chmod +x $WRAPPER_PATH
+
+# Ensure /usr/local/bin is in PATH
+if ! echo "$PATH" | grep -q "/usr/local/bin"; then
+    echo "export PATH=\$PATH:/usr/local/bin" >> ~/.bashrc
+    echo "Added /usr/local/bin to PATH in ~/.bashrc"
 fi
 
-# Add function if not already present
-if ! grep -q "definer:()" "$PROFILE_FILE"; then
-    echo "$ALIAS_COMMAND" >> "$PROFILE_FILE"
-    echo "Added 'definer:' function to $PROFILE_FILE"
-else
-    echo "'definer:' function already exists in $PROFILE_FILE"
-fi
-
-# Source the profile file automatically to make 'definer:' available immediately
-echo "Sourcing $PROFILE_FILE..."
-source "$PROFILE_FILE"
+# Reload shell profile
+echo "Sourcing ~/.bashrc..."
+source ~/.bashrc
 
 # Final message
 echo "Installation complete! You can now use 'definer:' immediately."
