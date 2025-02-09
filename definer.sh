@@ -33,16 +33,17 @@ import sys
 import requests
 import subprocess
 
-def get_definition(word):
-    """Fetch the definition using the `dict` command or an API."""
-    try:
-        result = subprocess.run(["dict", word], capture_output=True, text=True)
-        if result.stdout.strip():
-            return result.stdout.strip()
-    except FileNotFoundError:
-        pass  # If dict is not available, fallback to API
-
-    # Fallback to an online dictionary API
+def get_definition(word, verbose):
+    """Fetch the definition using the `dict` command if verbose, otherwise use an API."""
+    if verbose:
+        try:
+            result = subprocess.run(["dict", word], capture_output=True, text=True)
+            if result.stdout.strip():
+                return result.stdout.strip()
+        except FileNotFoundError:
+            return "Error: `dict` command not found. Install `dict` or run without -v."
+    
+    # Default to API if `-v` is not set
     try:
         response = requests.get(f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}", timeout=5)
         data = response.json()
@@ -60,11 +61,12 @@ def get_definition(word):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: definer: <word>")
+        print("Usage: definer: <word> [-v]")
         sys.exit(1)
 
     word = sys.argv[1]
-    print(get_definition(word))
+    verbose = "-v" in sys.argv
+    print(get_definition(word, verbose))
 
 if __name__ == "__main__":
     main()
@@ -97,3 +99,4 @@ source ~/.bashrc
 # Final message
 echo "Installation complete! You can now use 'definer:' immediately."
 echo "Example: definer: hello"
+echo "Verbose mode (using 'dict' command): definer: hello -v"
