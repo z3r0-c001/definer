@@ -211,7 +211,7 @@ This project is licensed under the **MIT License** with attribution.
 If you use or modify this project, you must provide credit by including the following:
 
 ```
-This project is based on "Definer: A Simple Linux CLI Dictionary Tool" by [Your Name], available at https://github.com/z3r0-c001/definer
+This project is based on "Definer: A Simple Linux CLI Dictionary Tool" by z3r0-c001, available at https://github.com/z3r0-c001/definer
 ```
 
 See the [LICENSE](LICENSE) file for full details.
