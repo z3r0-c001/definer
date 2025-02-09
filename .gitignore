@@ -1,0 +1,31 @@
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore system files
+.DS_Store
+.env
+*.log
+
+# Ignore installation files
+*.sh
+
+# Ignore temporary files
+*.swp
+*.swo
+*.bak
+
+# Ignore virtual environments
+venv/
+.env/
+
+# Ignore build artifacts
+dist/
+build/
+*.egg-info/
+
+# Ignore Git-related metadata
+.git/
+
