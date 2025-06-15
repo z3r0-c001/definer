@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025
+Copyright (c) 2025 z3r0-c001
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,12 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-### Attribution Requirement
-If you use or modify this project, you must provide credit by including the following:
-
-```
-This project is based on "Definer: A Simple Linux CLI Dictionary Tool", By Z3r0-c001
-available at https://github.com/z3r0-c001/definer
-```
-
